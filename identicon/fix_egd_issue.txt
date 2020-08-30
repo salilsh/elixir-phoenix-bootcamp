@@ -1,0 +1,1 @@
+Egd is not included in the latest versions of OTP. Please take a look at this reddit thread to troubleshoot: https://www.reddit.com/r/elixir/comments/719tdf/erlang_egd_not_working_inside_elixir_on_windows/
