@@ -3,7 +3,7 @@ defmodule Discuss.AuthController do
   alias Discuss.User
   plug Ueberauth
 
-  def callback( %{assigns: %{ueberauth_auth: auth}} = conn, params) do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
                     token: auth.credentials.token,
                     email: auth.info.email,
@@ -13,6 +13,15 @@ defmodule Discuss.AuthController do
 
     signin(conn, changeset)
   end
+
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)
+    |> put_flash(:info, "Logged out!")
+    |> redirect(to: topic_path(conn, :index))
+  end
+
+  # private
 
   defp signin(conn, changeset) do
     case insert_or_update_user(changeset) do
